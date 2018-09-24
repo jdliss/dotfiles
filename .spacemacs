@@ -315,8 +315,10 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (
-   )
+  (add-hook 'dired-mode-hook (lambda ()
+                               (dired-omit-mode)
+                               (setq dired-omit-files "\.DS_Store")
+                               ))
   )
 
 (defun dotspacemacs/user-config ()
