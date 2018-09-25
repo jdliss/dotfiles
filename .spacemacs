@@ -329,10 +329,22 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-   (setq-default evil-escape-key-sequence "jk")
-   (setq insert-directory-program "gls")
-   (setq dired-listing-switches "-al --group-directories-first")
-   (setq create-lockfiles nil)
+
+  ;; Set escape sequence
+  (setq-default evil-escape-key-sequence "jk")
+
+  ;; use core-utils gls for dired mode listing
+  (setq insert-directory-program "gls")
+
+  ;; sort dired listing in, group dirs first
+  (setq dired-listing-switches "-al --group-directories-first")
+
+  ;; don't create lockfiles
+  (setq create-lockfiles nil)
+
+  ;; prevent pasting and extra clicking when opening files/dirs with mouse
+  (add-hook 'spacemacs-buffer-mode-hook (lambda ()
+                                          (set (make-local-variable 'mouse-1-click-follows-link) nil)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
