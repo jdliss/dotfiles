@@ -345,7 +345,10 @@ you should place your code here."
   ;; prevent pasting and extra clicking when opening files/dirs with mouse
   (add-hook 'spacemacs-buffer-mode-hook (lambda ()
                                           (set (make-local-variable 'mouse-1-click-follows-link) nil)))
-  )
+
+  ;; transparent title bar
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
