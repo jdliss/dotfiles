@@ -348,7 +348,22 @@ you should place your code here."
 
   ;; transparent title bar
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-)
+
+  ;; set dark mode for frame title, results in white title text if enabled
+  ;; (add-to-list 'default-frame-alist '(ns-appearance . dark))
+
+  ;; no frame title icon
+  (setq ns-use-proxy-icon nil)
+
+  ;; no frame title
+  (setq-default frame-title-format nil)
+
+  ;; set frame title to path to folder in dired mode
+  ;; otherwise set frame title to "Spacemacs"
+  ;; (setq-default frame-title-format
+  ;;       '(buffer-file-name "Spacemacs"
+  ;;        (dired-directory dired-directory "%b")))
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
