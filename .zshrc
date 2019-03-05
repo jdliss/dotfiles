@@ -13,10 +13,19 @@ ZSH_THEME="cobalt2"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git powerline dotenv zsh-autosuggestions)
-plugins=(git powerline dotenv)
+plugins=(powerline dotenv)
 
-# rails stuff
-alias nuke='rake db:migrate:reset'
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+# Work stuff
+alias ssh-staging="ssh -i ~/.ssh/moto-cluster.pem $STAGING_ADDR"
+alias ssh-dev="ssh -i ~/.ssh/moto-cluster.pem $DEV_ADDR"
 
 # Emacs stuff
 # if [[ -n ${INSIDE_EMACS} ]]; then
@@ -24,6 +33,9 @@ alias nuke='rake db:migrate:reset'
 #     prompt walters
 #     unsetopt zle
 # fi
+
+# Start emacs in background from terminal
+em() { emacs $@ &>/dev/null & disown }
 
 # pi stuff
 function sshpi {
@@ -34,32 +46,13 @@ function sshpi {
     fi
 }
 
-alias pihole-stat='python3 ~/pihole-info/pihole-status.py'
-
 # crystal stuff
 export PKG_CONFIG_PATH='/usr/local/opt/openssl/lib/pkgconfig'
 
-# StarCluster stuff
-# export PYTHONPATH="/usr/local/lib/python2.7/site-packages"
-alias scssh='starcluster sn -u moto -X'
-alias sc="starcluster"
-
-# alias jt="ruby ~/scripts/java_tree.rb"
-
-# set Go home dir
-# export GOPATH=$HOME/go
-# alias gopath=$GOPATH
-
-# go shortcuts
-# alias letsgo="cd ~/go"
-
-# rake shortcuts
-# alias nuke='rake db:drop db:create db:migrate db:seed'
-
 # git aliases
 alias gs="git status"
-# alias ga="git add ."
-# alias gc="git commit -m"
+alias ga="git add"
+alias gc="git commit"
 alias gd="git diff"
 alias gb="git branch"
 alias gl="git log --oneline"
@@ -72,46 +65,8 @@ alias be="bundle exec"
 alias pro="vim ~/.zshrc"
 # alias vim="nvim"
 
-# # file path
-# alias cdt="cd ~/turing"
-# alias cd1="cd ~/turing/1module"
-# alias cd2="cd ~/turing/2module"
-# alias cd3="cd ~/turing/3module"
-# alias cd4="cd ~/turing/4module"
-# alias cdp="cd ~/turing/4module/projects"
-# alias cdc="cd ~/turing/4module/classwork"
-# alias pro="atom ~/.bash_profile"
-
-# # NEVER GONNA GIVE YOU UP
-# alias yolo="curl -L http://bit.ly/10hA8iC | bash"
-
-# # command: navigation & listing
-# alias h="history"
-# alias ll="ls -1hA"
-
 alias cd..="cd .."
 alias ..="cd .."
-
-# # navigate to folder commands
-# alias py="cd ~/python"
-# alias sw="cd ~/swift"
-# alias exer="cd ~/exercism"
-# alias posse="cd ~/turing/posse"
-# alias mastermind="cd ~/turing/1module/projects/mastermind2"
-# alias sorting="cd ~/turing/1module/projects/sorting-suite/"
-# alias bst="cd ~/turing/1module/projects/bst"
-# alias http="cd ~/turing/1module/projects/httpyykm"
-# alias complete_me="cd ~/turing/1module/projects/complete_me"
-# alias black-thursday="cd ~/turing/1module/projects/black_thursday"
-# alias task="cd ~/turing/2module/projects/task_manager"
-# alias robot="cd ~/turing/2module/projects/robot_world"
-# alias rush="cd ~/turing/2module/projects/rush-hour-skeleton"
-# alias mix="cd ~/turing/2module/projects/mix-master"
-# alias shop="cd ~/turing/2module/projects/little_shop"
-# alias pivot="cd ~/turing/3module/projects/pivot"
-# alias api="cd ~/turing/3module/projects/api-curious"
-# alias coinz="cd ~/turing/3module/projects/clarkebase"
-# alias game="cd ~/turing/4module/projects/game-time"
 
 function mkcd {
     mkdir $1
@@ -199,3 +154,7 @@ if [ -f '/Users/jdliss/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '
 if [ -f '/Users/jdliss/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/jdliss/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
