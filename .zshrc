@@ -35,7 +35,7 @@ alias ssh-dev="ssh -i ~/.ssh/moto-cluster.pem $DEV_ADDR"
 # fi
 
 # Start emacs in background from terminal
-em() { emacs $@ &>/dev/null & disown }
+em() { (emacs $@ &>/dev/null &) }
 
 # pi stuff
 function sshpi {
@@ -63,6 +63,7 @@ alias logp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 # misc aliases
 alias be="bundle exec"
 alias pro="vim ~/.zshrc"
+alias src="source ~/.zshrc"
 # alias vim="nvim"
 
 alias cd..="cd .."
