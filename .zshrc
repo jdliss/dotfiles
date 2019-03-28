@@ -35,7 +35,7 @@ alias ssh-dev="ssh -i ~/.ssh/moto-cluster.pem $DEV_ADDR"
 # fi
 
 # Start emacs in background from terminal
-em() { (emacs $@ &>/dev/null &) }
+em() { emacs $@ &>/dev/null & disown }
 
 # pi stuff
 function sshpi {
