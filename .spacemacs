@@ -451,6 +451,34 @@ you should place your code here."
   ;; Toggle quotes with C-c '
   (global-set-key (kbd "C-c '") 'toggle-quotes)
 
+  ;;; projectile configuration
+  (require 'projectile)
+  (setq projectile-require-project-root nil)
+  (setq projectile-enable-caching t)
+  (setq projectile-globally-ignored-directories
+        (append '(
+                  ".git"
+                  "data"
+                  "tmp"
+                  "work"
+                  "log"
+                  "results"
+                  )
+                projectile-globally-ignored-directories))
+  (setq projectile-globally-ignored-files
+        (append '(
+                  ".DS_Store"
+                  "*.gz"
+                  "*.pyc"
+                  "*.jar"
+                  "*.tar.gz"
+                  "*.tgz"
+                  "*.zip"
+                  )
+                projectile-globally-ignored-files))
+  (projectile-global-mode)
+
+
   )
 
 
