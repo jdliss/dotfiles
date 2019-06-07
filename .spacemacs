@@ -479,6 +479,8 @@ you should place your code here."
   (projectile-global-mode)
 
 
+  ;; Rust configuration
+  (setq-default racer-rust-src-path "/Users/jdliss/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src")
   )
 
 

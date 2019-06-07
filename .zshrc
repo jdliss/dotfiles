@@ -55,8 +55,7 @@ alias ga="git add"
 alias gc="git commit"
 alias gd="git diff"
 alias gb="git branch"
-alias gl="git log --oneline"
-alias gpo="git push origin"
+alias gl="git log --oneline" alias gpo="git push origin"
 alias gpom="git push origin master"
 alias logp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
@@ -78,7 +77,11 @@ cd() { builtin cd "$@"; ls; }
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH="/usr/local/opt/libiconv/bin:$PATH"
+export PATH="/usr/local/opt/libiconv/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Rust stuff
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
 eval "$(rbenv init -)"
 
 # The next line updates PATH for the Google Cloud SDK.
