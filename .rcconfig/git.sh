@@ -1,0 +1,8 @@
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gd="git diff"
+alias gb="git branch"
+alias gl="git log --oneline" alias gpo="git push origin"
+alias gpom="git push origin master"
+alias logp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
