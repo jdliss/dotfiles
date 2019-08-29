@@ -15,6 +15,7 @@ let g:lightline = { 'colorscheme': 'palenight' }
 
 " Keep Ale sign gutter open
 let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
 
 " Set escape sequence
 inoremap jk <Esc>
