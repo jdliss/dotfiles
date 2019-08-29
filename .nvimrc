@@ -5,12 +5,13 @@ Plug '/usr/local/opt/fzf'
 Plug 'dense-analysis/ale'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
-
+Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
 set background=dark
 colorscheme palenight
+let g:lightline = { 'colorscheme': 'palenight' }
 
 " Keep Ale sign gutter open
 let g:ale_sign_column_always = 1
