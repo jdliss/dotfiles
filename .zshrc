@@ -37,6 +37,7 @@ config_files=(
     google
     nvm
     zsh
+    fzf
     general
 )
 

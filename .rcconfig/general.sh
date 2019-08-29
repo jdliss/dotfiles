@@ -1,3 +1,4 @@
+alias vim="nvim"
 alias be="bundle exec"
 alias pro="vim ~/.zshrc"
 alias src="source ~/.zshrc"
