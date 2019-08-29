@@ -17,6 +17,9 @@ let g:lightline = { 'colorscheme': 'palenight' }
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
 
+" Handle viewing dirs with vim-ranger
+let g:ranger_replace_netrw = 1
+
 " Set escape sequence
 inoremap jk <Esc>
 
