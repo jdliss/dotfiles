@@ -3,6 +3,9 @@ call plug#begin()
 Plug 'drewtempelmeyer/palenight.vim'
 Plug '/usr/local/opt/fzf'
 Plug 'dense-analysis/ale'
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
+
 
 call plug#end()
 
@@ -27,6 +30,10 @@ nnoremap <silent> <leader>n :set number! number?<CR>
 
 " Set leader-F to open fuzzy finder
 nnoremap <silent> <leader>f :FZF <cr>
+
+" Configure Ranger keymappings
+let g:ranger_map_keys = 0
+map <leader><Tab> :Ranger<CR>
 
 " Set to auto read when a file is changed from the outside
 set autoread
