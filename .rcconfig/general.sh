@@ -15,3 +15,5 @@ function mkcd {
 }
 
 cd() { builtin cd "$@"; ls; }
+
+export EDITOR="nvim"
