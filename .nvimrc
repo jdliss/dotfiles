@@ -44,8 +44,18 @@ nnoremap <silent> <leader>f :FZF <cr>
 let g:ranger_map_keys = 0
 map <leader><Tab> :Ranger<CR>
 
-" Remap <leader>cc to gcc for NERDCommenter toggle comments
-map gcc <leader>cc
+" Remap <leader>c<space> to gcc for NERDCommenter toggle comments
+nmap gcc <leader>c<space>
+vmap gc <leader>c<space>
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
 
 " Set to auto read when a file is changed from the outside
 set autoread
