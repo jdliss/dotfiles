@@ -8,6 +8,7 @@ Plug 'rbgrouleff/bclose.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'danro/rename.vim'
+Plug 'tpope/vim-sensible'
 
 call plug#end()
 
@@ -58,9 +59,6 @@ let g:NERDDefaultAlign = 'left'
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
-" Set to auto read when a file is changed from the outside
-set autoread
-
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -70,9 +68,6 @@ set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-" Turn on the Wild menu
-set wildmenu
-
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
@@ -80,9 +75,6 @@ if has("win16") || has("win32")
 else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
-
-"Always show current position
-set ruler
 
 " show line numbers
 set number
@@ -93,9 +85,6 @@ set cmdheight=1
 " A buffer becomes hidden when it is abandoned
 set hid
 
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-
 " Ignore case when searching
 set ignorecase
 
@@ -104,9 +93,6 @@ set smartcase
 
 " Highlight search results
 set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -132,9 +118,6 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
@@ -145,10 +128,6 @@ set noswapfile
 
 " Use spaces instead of tabs
 set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
 
 " 1 tab == 2 spaces
 set shiftwidth=2
