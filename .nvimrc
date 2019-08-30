@@ -10,6 +10,10 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'danro/rename.vim'
 Plug 'tpope/vim-sensible'
 
+" TODO
+" Plug 'nelstrom/vim-textobj-rubyblock'
+" Plug 'davebrace/vim-testnav'
+
 call plug#end()
 
 set background=dark
@@ -22,6 +26,15 @@ let g:ale_set_highlights = 0
 
 " Handle viewing dirs with vim-ranger
 let g:ranger_replace_netrw = 1
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" turn off backups
+set nobackup
+set nowritebackup
+set noswapfile
 
 " use system clipboard
 set clipboard=unnamedplus
@@ -36,8 +49,9 @@ let mapleader=" "
 " toggle line numbers
 nnoremap <silent> <leader>n :set number! number?<CR>
 
-" Set leader-F to open fuzzy finder
-nnoremap <silent> <leader>f :FZF <cr>
+" Set leader-pf and ctrl-p to open fuzzy finder
+nnoremap <silent> <leader>pf :FZF <cr>
+nnoremap <silent> <C-p> :FZF <cr>
 
 " Configure Ranger keymappings
 let g:ranger_map_keys = 0
@@ -129,6 +143,7 @@ set expandtab
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
+set softtabstop=2
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
