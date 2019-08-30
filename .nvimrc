@@ -20,6 +20,9 @@ let g:ale_set_highlights = 0
 " Handle viewing dirs with vim-ranger
 let g:ranger_replace_netrw = 1
 
+" use system clipboard
+set clipboard=unnamedplus
+
 " Set escape sequence
 inoremap jk <Esc>
 
