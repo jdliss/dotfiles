@@ -7,6 +7,7 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'danro/rename.vim'
 
 call plug#end()
 
