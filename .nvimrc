@@ -22,6 +22,8 @@ let g:lightline = { 'colorscheme': 'palenight' }
 
 " Keep Ale sign gutter open
 let g:ale_sign_column_always = 1
+
+" Ale - Don't highlight lines
 let g:ale_set_highlights = 0
 
 " Handle viewing dirs with vim-ranger
