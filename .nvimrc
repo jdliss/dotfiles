@@ -10,6 +10,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'danro/rename.vim'
 Plug 'tpope/vim-sensible'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-endwise'
 
 " TODO
 " Plug 'nelstrom/vim-textobj-rubyblock'
