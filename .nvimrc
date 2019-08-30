@@ -6,6 +6,7 @@ Plug 'dense-analysis/ale'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
@@ -42,6 +43,9 @@ nnoremap <silent> <leader>f :FZF <cr>
 " Configure Ranger keymappings
 let g:ranger_map_keys = 0
 map <leader><Tab> :Ranger<CR>
+
+" Remap <leader>cc to gcc for NERDCommenter toggle comments
+map gcc <leader>cc
 
 " Set to auto read when a file is changed from the outside
 set autoread
