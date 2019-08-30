@@ -9,6 +9,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'danro/rename.vim'
 Plug 'tpope/vim-sensible'
+Plug 'jiangmiao/auto-pairs'
 
 " TODO
 " Plug 'nelstrom/vim-textobj-rubyblock'
