@@ -31,6 +31,9 @@ let g:ale_set_highlights = 0
 " Handle viewing dirs with vim-ranger
 let g:ranger_replace_netrw = 1
 
+" Prevent adding comment char on newline when hitting 'o' or <Enter> from a comment
+au FileType * set fo-=c fo-=r fo-=o
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
