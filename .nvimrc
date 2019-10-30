@@ -11,6 +11,7 @@ Plug 'danro/rename.vim'
 Plug 'tpope/vim-sensible'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
+Plug 'elixir-editors/vim-elixir'
 
 " TODO
 " Plug 'nelstrom/vim-textobj-rubyblock'
