@@ -12,6 +12,7 @@ Plug 'tpope/vim-sensible'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
 Plug 'elixir-editors/vim-elixir'
+Plug 'mattn/emmet-vim'
 
 " TODO
 " Plug 'nelstrom/vim-textobj-rubyblock'
@@ -31,6 +32,9 @@ let g:ale_set_highlights = 0
 
 " Handle viewing dirs with vim-ranger
 let g:ranger_replace_netrw = 1
+
+" Change Emmet trigger key
+let g:user_emmet_leader_key=','
 
 " Prevent adding comment char on newline when hitting 'o' or <Enter> from a comment
 au FileType * set fo-=c fo-=r fo-=o
