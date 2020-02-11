@@ -217,7 +217,9 @@
     "bi" 'bundle-install
     "ts" 'flycheck-mode
     "z" 'zoom-mode
-    "w" 'save-buffer)
+    "w" 'save-buffer
+    "[" 'previous-buffer
+    "]" 'next-buffer)
   ;; Vertical splits appear to the right
   (setq evil-vsplit-window-right t)
   ;; Horizontal splits appear below
