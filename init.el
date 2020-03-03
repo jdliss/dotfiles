@@ -348,6 +348,9 @@
   :config
   (setq zoom-size '(0.618 . 0.618)))
 
+(use-package docker-compose-mode
+  :ensure t
+  :no-require t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
