@@ -134,6 +134,9 @@
 ;; Disable jump shortcuts
 (setq dashboard-show-shortcuts nil)
 
+;; set C++ indentation to 4
+(setq c-default-style "stroustrup")
+
 ;; Load solarized-dark theme
 (use-package solarized-theme
   :ensure t
@@ -211,7 +214,7 @@
     "f" 'helm-find-files
     ;; "b" 'helm-buffers-list
     "m" 'helm-bookmarks
-    "/" 'helm-projectile-grep
+    "/" 'helm-projectile-ag
     "qq" 'evil-quit-all
     "qr" 'restart-emacs
     "bi" 'bundle-install
@@ -272,9 +275,9 @@
   ;; C-z lists helm actions
   (define-key helm-map (kbd "C-z")  'helm-select-action))
 
-;; install ag and helm-ag
-(use-package ag :ensure t :no-require t)
-(use-package helm-ag :ensure t :no-require t)
+;; install ag and helm-ag for use with helm-projectile-ag
+(use-package ag :ensure t)
+(use-package helm-ag :ensure t)
 
 ;; Install projectile
 (use-package projectile
@@ -285,7 +288,12 @@
   (setq projectile-project-search-path '("~/motologic/")))
 
 ;; Install helm-projectile
-(use-package helm-projectile :ensure t)
+(use-package helm-projectile
+  :ensure t
+  :config
+  (add-to-list 'grep-find-ignored-directories "spec/fixtures")
+  (add-to-list 'grep-find-ignored-directories "spec/vcr")
+  )
 
 ;; Install flycheck
 (use-package flycheck
@@ -348,9 +356,17 @@
   :config
   (setq zoom-size '(0.618 . 0.618)))
 
-(use-package docker-compose-mode
+(use-package yaml-mode :ensure t)
+(use-package dockerfile-mode :ensure t)
+(use-package web-mode
   :ensure t
-  :no-require t)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -362,7 +378,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (golden-ratio evil-search-highlight-persist telephone-line dimmer use-package solarized-theme smooth-scrolling rubocop restart-emacs rbenv ranger powerline helm-projectile helm-ag flycheck evil-surround evil-leader evil-exchange evil-escape evil-commentary dashboard bundler better-defaults all-the-icons ag))))
+    (web-mode golden-ratio evil-search-highlight-persist telephone-line dimmer use-package solarized-theme smooth-scrolling rubocop restart-emacs rbenv ranger powerline helm-projectile helm-ag flycheck evil-surround evil-leader evil-exchange evil-escape evil-commentary dashboard bundler better-defaults all-the-icons ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
