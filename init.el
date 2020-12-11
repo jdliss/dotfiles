@@ -74,7 +74,7 @@
 
 ;; add shortcut to re-render the frame
 (global-set-key (kbd "<f5>") #'redraw-display)
-(global-set-key (kbd "C-c '") #'ruby-toggle-string-quotes)
+;; (global-set-key (kbd "C-c '") #'ruby-toggle-string-quotes)
 
 ;; Always re-read changed files from disk
 (global-auto-revert-mode t)
@@ -329,16 +329,16 @@
 (use-package bundler :ensure t)
 
 ;; Auto insert block "end"
-(use-package ruby-end :ensure t)
+;; (use-package ruby-end :ensure t)
 
-(use-package enh-ruby-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist
-               '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
-  (setq enh-ruby-deep-indent-paren nil)
-  )
+;; (use-package enh-ruby-mode
+;;   :ensure t
+;;   :config
+;;   (add-to-list 'auto-mode-alist
+;;                '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
+;;   (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
+;;   (setq enh-ruby-deep-indent-paren nil)
+;;   )
 
 ;; Emacs pairing with rbenv
 (use-package rbenv
