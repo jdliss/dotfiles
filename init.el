@@ -3,8 +3,8 @@
 (setq package-list '(use-package))
 
 ;; Add Melpa as the default Emacs Package repository ;; only contains a very limited number of packages
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/archive-contents/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; Activate all the packages (in particular autoloads)
 (package-initialize)
@@ -74,7 +74,7 @@
 
 ;; add shortcut to re-render the frame
 (global-set-key (kbd "<f5>") #'redraw-display)
-;; (global-set-key (kbd "C-c '") #'ruby-toggle-string-quotes)
+(global-set-key (kbd "C-c '") #'ruby-toggle-string-quotes)
 
 ;; Always re-read changed files from disk
 (global-auto-revert-mode t)
@@ -197,6 +197,11 @@
   (setq evil-search-module 'evil-search)
   :config
   (evil-mode t))
+
+;; set undo system
+(use-package undo-tree :ensure t :no-require t)
+(global-undo-tree-mode)
+(evil-set-undo-system 'undo-tree)
 
 (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
 
@@ -329,22 +334,171 @@
 (use-package bundler :ensure t)
 
 ;; Auto insert block "end"
-;; (use-package ruby-end :ensure t)
+(use-package ruby-end :ensure t)
 
-;; (use-package enh-ruby-mode
-;;   :ensure t
-;;   :config
-;;   (add-to-list 'auto-mode-alist
-;;                '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
-;;   (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
-;;   (setq enh-ruby-deep-indent-paren nil)
-;;   )
-
-;; Emacs pairing with rbenv
-(use-package rbenv
+(use-package enh-ruby-mode
   :ensure t
   :config
-  (global-rbenv-mode))
+  (add-to-list 'auto-mode-alist
+               '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
+  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
+  (setq enh-ruby-deep-indent-paren nil)
+  )
+
+(use-package rust-mode :ensure t)
+
+;; Use spaces for tabs in rust-mode
+(add-hook 'rust-mode-hook
+          (lambda () (setq indent-tabs-mode nil)))
+
+(use-package flycheck-rust :ensure t)
+
+;; Set up flycheck-rust
+(with-eval-after-load 'rust-mode
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+;; Install lsp-mode
+;; (use-package lsp-mode :ensure t)
+
+;; (require 'lsp-mode)
+
+;; (defgroup lsp-solargraph nil
+;;   "LSP support for Ruby, using the Solargraph language server."
+;;   :group 'lsp-mode
+;;   :link '(url-link "https://github.com/castwide/solargraph")
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; ;; (defcustom lsp-solargraph-check-gem-version t
+;; ;;   "Automatically check if a new version of the Solargraph gem is available."
+;; ;;   :type 'boolean)
+
+;; (defcustom lsp-solargraph-completion t
+;;   "Enable completion"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-hover t
+;;   "Enable hover"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-diagnostics t
+;;   "Enable diagnostics"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-autoformat nil
+;;   "Enable automatic formatting while typing (WARNING: experimental)"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-formatting t
+;;   "Enable document formatting"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-symbols t
+;;   "Enable symbols"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-definitions t
+;;   "Enable definitions (go to, etc.)"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-rename t
+;;   "Enable symbol renaming"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-references t
+;;   "Enable finding references"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-folding t
+;;   "Enable folding ranges"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-log-level "warn"
+;;   "Level of debug info to log. `warn` is least and `debug` is most."
+;;   :type '(choice (const :tag "warn" "info" "debug"))
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; ;; https://github.com/castwide/solargraph#solargraph-and-bundler
+;; (defcustom lsp-solargraph-use-bundler nil
+;;   "Run solargraph under bundler"
+;;   :type 'boolean
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.1"))
+
+;; (defcustom lsp-solargraph-multi-root t
+;;   "If non nil, `solargraph' will be started in multi-root mode."
+;;   :type 'boolean
+;;   :safe #'booleanp
+;;   :group 'lsp-solargraph
+;;   :package-version '(lsp-mode . "6.3"))
+
+;; (defun lsp-solargraph--build-command ()
+;;   "Build solargraph command"
+;;   (let ((lsp-command '("solargraph" "stdio")))
+;;     (if lsp-solargraph-use-bundler
+;;               (append '("bundle" "exec") lsp-command)
+;;             lsp-command)))
+
+;; (lsp-register-custom-settings
+;;  '(("solargraph.logLevel" lsp-solargraph-log-level)
+;;    ("solargraph.folding" lsp-solargraph-folding t)
+;;    ("solargraph.references" lsp-solargraph-references t)
+;;    ("solargraph.rename" lsp-solargraph-rename t)
+;;    ("solargraph.definitions" lsp-solargraph-definitions t)
+;;    ("solargraph.symbols" lsp-solargraph-symbols t)
+;;    ("solargraph.formatting" lsp-solargraph-formatting t)
+;;    ("solargraph.autoformat" lsp-solargraph-autoformat t)
+;;    ("solargraph.diagnostics" lsp-solargraph-diagnostics t)
+;;    ("solargraph.hover" lsp-solargraph-hover t)
+;;    ("solargraph.completion" lsp-solargraph-completion t)
+;;    ("solargraph.useBundler" lsp-solargraph-use-bundler t)))
+
+;; ;; Ruby
+;; (lsp-register-client
+;;  (make-lsp-client
+;;   :new-connection (lsp-stdio-connection
+;;                    #'lsp-solargraph--build-command)
+;;   :major-modes '(ruby-mode enh-ruby-mode)
+;;   :priority -1
+;;   :multi-root lsp-solargraph-multi-root
+;;   :server-id 'ruby-ls
+;;   :initialized-fn (lambda (workspace)
+;;                     (with-lsp-workspace workspace
+;;                       (lsp--set-configuration
+;;                        (lsp-configuration-section "solargraph"))))))
+
+;; (provide 'lsp-solargraph)
+;; ;;; lsp-solargraph.el ends here
+
+;; ;; Local Variables:
+;; ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; ;; End:
+
+;; Emacs pairing with rbenv
+;; (use-package rbenv
+;;   :ensure t
+;;   :config
+;;   (global-rbenv-mode))
 
 (use-package direnv
   :ensure t
@@ -368,17 +522,17 @@
   (setq web-mode-code-indent-offset 2)
   )
 
+(use-package terraform-mode :ensure t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(package-selected-packages
-   (quote
-    (web-mode golden-ratio evil-search-highlight-persist telephone-line dimmer use-package solarized-theme smooth-scrolling rubocop restart-emacs rbenv ranger powerline helm-projectile helm-ag flycheck evil-surround evil-leader evil-exchange evil-escape evil-commentary dashboard bundler better-defaults all-the-icons ag))))
+   '(terraform-mode lsp-mode web-mode golden-ratio evil-search-highlight-persist telephone-line dimmer use-package solarized-theme smooth-scrolling rubocop restart-emacs rbenv ranger powerline helm-projectile helm-ag flycheck evil-surround evil-leader evil-exchange evil-escape evil-commentary dashboard bundler better-defaults all-the-icons ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
