@@ -129,7 +129,7 @@
 (setq dashboard-center-content t)
 
 ;; Set custom dashboard footer message
-(setq dashboard-footer "Happy coding!")
+(setq dashboard-footer-messages '("Happy coding!"))
 
 ;; Disable jump shortcuts
 (setq dashboard-show-shortcuts nil)
