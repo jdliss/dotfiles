@@ -159,8 +159,7 @@
   (setq powerline-default-separator 'arrow)
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
   (setq-default powerline-height 22)
-  (spaceline-spacemacs-theme)
-  )
+  (spaceline-spacemacs-theme))
 
 (use-package diminish
   :ensure t
