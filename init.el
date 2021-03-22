@@ -334,7 +334,11 @@
 (use-package bundler :ensure t)
 
 ;; Auto insert block "end"
-(use-package ruby-end :ensure t)
+(use-package ruby-end
+  :ensure t
+  :config
+  (setq ruby-end-insert-newline nil)
+  )
 
 (use-package enh-ruby-mode
   :ensure t
