@@ -30,7 +30,7 @@
 (setq make-backup-files nil)
 
 ;; Set font info
-(set-frame-font "Source Code Pro 15" nil t)
+(set-frame-font "SauceCodePro Nerd Font 15" nil t)
 
 ;; Turn off bell
 (setq ring-bell-function 'ignore)
@@ -79,6 +79,10 @@
 ;; Always re-read changed files from disk
 (global-auto-revert-mode t)
 
+;; Set some higher mem thresholds
+(setq gc-cons-threshold 50000000)
+(setq large-file-warning-threshold 100000000)
+
 ;; Smooth scrolling
 (use-package smooth-scrolling
   :ensure t
@@ -97,6 +101,9 @@
 
 ;; Required by dashboard
 (use-package all-the-icons :ensure t :no-require t)
+
+;; Only doing this so I can use diminish to hide the minor mode..
+(use-package page-break-lines :ensure t :diminish page-break-lines-mode)
 
 ;; Better home page
 (use-package dashboard
@@ -144,37 +151,22 @@
   :config
   (load-theme 'solarized-dark t))
 
-;; Set up powerline
-(use-package powerline
+(use-package spaceline
   :ensure t
-  :no-require t
   :config
-  (powerline-default-theme))
+  (require 'spaceline-config)
+  (spaceline-toggle-buffer-encoding-abbrev-off)
+  (setq powerline-default-separator 'arrow)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (setq-default powerline-height 22)
+  (spaceline-spacemacs-theme)
+  )
 
-;; Alternatively - use telephone-line
-;; (use-package telephone-line
-;;   :ensure t
-;;   :init
-;;   (setq telephone-line-lhs
-;;         '((evil   . (telephone-line-evil-tag-segment))
-;;           (accent . (telephone-line-vc-segment
-;;                      telephone-line-erc-modified-channels-segment
-;;                      telephone-line-process-segment))
-;;           (nil    . (telephone-line-minor-mode-segment
-;;                      telephone-line-buffer-segment))))
-;;   (setq telephone-line-rhs
-;;         '((nil    . (telephone-line-misc-info-segment))
-;;           (accent . (telephone-line-major-mode-segment))
-;;           (evil   . (telephone-line-airline-position-segment))))
-;;   :config
-;;   (telephone-line-mode 1))
-
-;; ;; Install smart-mode-line
-;; (use-package smart-mode-line
-;;   :ensure t
-;;   :config
-;;   (setq sml/shorten-directory nil)
-;;   (sml/setup))
+(use-package diminish
+  :ensure t
+  :init
+  (diminish 'eldoc-mode)
+  (diminish 'abbrev-mode))
 
 ;; Install ranger
 (use-package ranger
@@ -199,7 +191,7 @@
   (evil-mode t))
 
 ;; set undo system
-(use-package undo-tree :ensure t :no-require t)
+(use-package undo-tree :ensure t :diminish undo-tree-mode)
 (global-undo-tree-mode)
 (evil-set-undo-system 'undo-tree)
 
@@ -236,6 +228,7 @@
 ;; Quick line commenting
 (use-package evil-commentary
   :ensure t
+  :diminish evil-commentary-mode
   :no-require t
   :config
   (evil-commentary-mode))
@@ -243,6 +236,7 @@
 ;; Set up evil escape
 (use-package evil-escape
   :ensure t
+  :diminish evil-escape-mode
   :no-require t
   :config
   (evil-escape-mode)
@@ -287,6 +281,7 @@
 ;; Install projectile
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :config
   (projectile-mode +1)
   ;; Set up projectile search path
@@ -297,12 +292,12 @@
   :ensure t
   :config
   (add-to-list 'grep-find-ignored-directories "spec/fixtures")
-  (add-to-list 'grep-find-ignored-directories "spec/vcr")
-  )
+  (add-to-list 'grep-find-ignored-directories "spec/vcr"))
 
 ;; Install flycheck
 (use-package flycheck
   :ensure t
+  :diminish flycheck-mode
   :config
   ;; Don't lint elisp files
   (setq flycheck-global-modes '(not emacs-lisp-mode))
@@ -310,14 +305,6 @@
 
 ;; Install rubocop
 (use-package rubocop :ensure t)
-
-;; Make sure emacs is aware of rbenv paths
-;; (setenv "PATH"
-;;         (concat (getenv "HOME") "/.rbenv/shims:"
-;;                 (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-;; (setq exec-path
-;;       (cons (concat (getenv "HOME") "/.rbenv/shims")
-;;             (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -327,8 +314,7 @@
   (setq exec-path
         (append
          (split-string-and-unquote path ":")
-         exec-path)))
-  )
+         exec-path))))
 
 ;; Install emacs bundler control
 (use-package bundler :ensure t)
@@ -336,9 +322,9 @@
 ;; Auto insert block "end"
 (use-package ruby-end
   :ensure t
+  :diminish ruby-end-mode
   :config
-  (setq ruby-end-insert-newline nil)
-  )
+  (setq ruby-end-insert-newline nil))
 
 (use-package enh-ruby-mode
   :ensure t
@@ -346,8 +332,7 @@
   (add-to-list 'auto-mode-alist
                '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
   (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
-  (setq enh-ruby-deep-indent-paren nil)
-  )
+  (setq enh-ruby-deep-indent-paren nil))
 
 (use-package rust-mode :ensure t)
 
@@ -361,149 +346,6 @@
 (with-eval-after-load 'rust-mode
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
-;; Install lsp-mode
-;; (use-package lsp-mode :ensure t)
-
-;; (require 'lsp-mode)
-
-;; (defgroup lsp-solargraph nil
-;;   "LSP support for Ruby, using the Solargraph language server."
-;;   :group 'lsp-mode
-;;   :link '(url-link "https://github.com/castwide/solargraph")
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; ;; (defcustom lsp-solargraph-check-gem-version t
-;; ;;   "Automatically check if a new version of the Solargraph gem is available."
-;; ;;   :type 'boolean)
-
-;; (defcustom lsp-solargraph-completion t
-;;   "Enable completion"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-hover t
-;;   "Enable hover"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-diagnostics t
-;;   "Enable diagnostics"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-autoformat nil
-;;   "Enable automatic formatting while typing (WARNING: experimental)"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-formatting t
-;;   "Enable document formatting"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-symbols t
-;;   "Enable symbols"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-definitions t
-;;   "Enable definitions (go to, etc.)"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-rename t
-;;   "Enable symbol renaming"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-references t
-;;   "Enable finding references"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-folding t
-;;   "Enable folding ranges"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-log-level "warn"
-;;   "Level of debug info to log. `warn` is least and `debug` is most."
-;;   :type '(choice (const :tag "warn" "info" "debug"))
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; ;; https://github.com/castwide/solargraph#solargraph-and-bundler
-;; (defcustom lsp-solargraph-use-bundler nil
-;;   "Run solargraph under bundler"
-;;   :type 'boolean
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.1"))
-
-;; (defcustom lsp-solargraph-multi-root t
-;;   "If non nil, `solargraph' will be started in multi-root mode."
-;;   :type 'boolean
-;;   :safe #'booleanp
-;;   :group 'lsp-solargraph
-;;   :package-version '(lsp-mode . "6.3"))
-
-;; (defun lsp-solargraph--build-command ()
-;;   "Build solargraph command"
-;;   (let ((lsp-command '("solargraph" "stdio")))
-;;     (if lsp-solargraph-use-bundler
-;;               (append '("bundle" "exec") lsp-command)
-;;             lsp-command)))
-
-;; (lsp-register-custom-settings
-;;  '(("solargraph.logLevel" lsp-solargraph-log-level)
-;;    ("solargraph.folding" lsp-solargraph-folding t)
-;;    ("solargraph.references" lsp-solargraph-references t)
-;;    ("solargraph.rename" lsp-solargraph-rename t)
-;;    ("solargraph.definitions" lsp-solargraph-definitions t)
-;;    ("solargraph.symbols" lsp-solargraph-symbols t)
-;;    ("solargraph.formatting" lsp-solargraph-formatting t)
-;;    ("solargraph.autoformat" lsp-solargraph-autoformat t)
-;;    ("solargraph.diagnostics" lsp-solargraph-diagnostics t)
-;;    ("solargraph.hover" lsp-solargraph-hover t)
-;;    ("solargraph.completion" lsp-solargraph-completion t)
-;;    ("solargraph.useBundler" lsp-solargraph-use-bundler t)))
-
-;; ;; Ruby
-;; (lsp-register-client
-;;  (make-lsp-client
-;;   :new-connection (lsp-stdio-connection
-;;                    #'lsp-solargraph--build-command)
-;;   :major-modes '(ruby-mode enh-ruby-mode)
-;;   :priority -1
-;;   :multi-root lsp-solargraph-multi-root
-;;   :server-id 'ruby-ls
-;;   :initialized-fn (lambda (workspace)
-;;                     (with-lsp-workspace workspace
-;;                       (lsp--set-configuration
-;;                        (lsp-configuration-section "solargraph"))))))
-
-;; (provide 'lsp-solargraph)
-;; ;;; lsp-solargraph.el ends here
-
-;; ;; Local Variables:
-;; ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;; ;; End:
-
-;; Emacs pairing with rbenv
-;; (use-package rbenv
-;;   :ensure t
-;;   :config
-;;   (global-rbenv-mode))
-
 (use-package direnv
   :ensure t
   :config
@@ -511,6 +353,7 @@
 
 (use-package zoom
   :ensure t
+  :diminish zoom-mode "Zoom"
   :config
   (setq zoom-size '(0.618 . 0.618)))
 
