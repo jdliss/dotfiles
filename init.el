@@ -233,7 +233,7 @@
     "<SPC>" 'helm-M-x
     ;; "<tab>" 'ranger
     "<tab>" 'deer
-    "f" 'helm-find-files
+    "fp" 'helm-projectile-switch-project
     "bb" 'helm-buffers-list
     "m" 'helm-bookmarks
     "/" 'helm-projectile-ag
@@ -308,8 +308,8 @@
   :diminish projectile-mode
   :config
   (projectile-mode +1)
-  ;; Set up projectile search path
-  (setq projectile-project-search-path '("~/motologic/")))
+  ;; Set default action when switching to a project through helm-projectile-find-project
+  (setq projectile-switch-project-action 'deer))
 
 ;; Install helm-projectile
 (use-package helm-projectile
