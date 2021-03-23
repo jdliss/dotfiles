@@ -228,7 +228,7 @@
     ;; "<tab>" 'ranger
     "<tab>" 'deer
     "f" 'helm-find-files
-    ;; "b" 'helm-buffers-list
+    "bb" 'helm-buffers-list
     "m" 'helm-bookmarks
     "/" 'helm-projectile-ag
     "qq" 'evil-quit-all
@@ -275,8 +275,7 @@
 ;; Install helm
 (use-package helm
   :ensure t
-  :bind
-  ("M-x" . helm-M-x)
+  :bind ("M-x" . helm-M-x)
   :config
   (setq helm-display-header-line nil)
   ;; Auto resize helm window
