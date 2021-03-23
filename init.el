@@ -83,6 +83,12 @@
 (setq gc-cons-threshold 50000000)
 (setq large-file-warning-threshold 100000000)
 
+;; Unbind evil-jump-backward and evil-jump-forward
+(global-unset-key (kbd "C-o"))
+(global-set-key (kbd "C-k") 'evil-jump-forward)
+(global-unset-key (kbd "<tab>"))
+(global-set-key (kbd "C-j") 'evil-jump-backward)
+
 ;; Smooth scrolling
 (use-package smooth-scrolling
   :ensure t
