@@ -144,12 +144,32 @@
 ;; set C++ indentation to 4
 (setq c-default-style "stroustrup")
 
+;; Add doom-themes
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; (load-theme 'doom-opera t)
+  ;; (load-theme 'doom-gruvbox t)
+  ;; (load-theme 'doom-dracula t)
+  ;; (load-theme 'doom-horizon t)
+  ;; (load-theme 'doom-Iosvkem t)
+  ;; (load-theme 'doom-material t)
+  ;; (load-theme 'doom-nord t)
+  ;; (load-theme 'doom-oceanic-next t)
+  (load-theme 'doom-opera t)
+  ;; (load-theme 'doom-peacock t)
+  ;; (load-theme 'doom-snazzy t)
+  ;; (load-theme 'doom-sourcerer t)
+  ;; (load-theme 'doom-spacegrey t)
+  ;; (load-theme 'doom-tomorrow-night t)
+  ;; (load-theme 'doom-wilmersdorf t)
+  :no-require t)
+
 ;; Load solarized-dark theme
 (use-package solarized-theme
   :ensure t
-  :no-require t
-  :config
-  (load-theme 'solarized-dark t))
+  ;; :config (load-theme 'solarized-dark t)
+  :no-require t)
 
 (use-package spaceline
   :ensure t
@@ -375,13 +395,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(package-selected-packages
    '(terraform-mode lsp-mode web-mode golden-ratio evil-search-highlight-persist telephone-line dimmer use-package solarized-theme smooth-scrolling rubocop restart-emacs rbenv ranger powerline helm-projectile helm-ag flycheck evil-surround evil-leader evil-exchange evil-escape evil-commentary dashboard bundler better-defaults all-the-icons ag)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
