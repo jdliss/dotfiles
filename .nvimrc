@@ -34,7 +34,7 @@ let g:ale_set_highlights = 0
 let g:ranger_replace_netrw = 1
 
 " Change Emmet trigger key
-let g:user_emmet_leader_key=','
+" let g:user_emmet_leader_key=','
 
 " Prevent adding comment char on newline when hitting 'o' or <Enter> from a comment
 au FileType * set fo-=c fo-=r fo-=o
@@ -63,7 +63,7 @@ let mapleader=" "
 nnoremap <silent> <leader>n :set number! number?<CR>
 
 " Set leader-pf and ctrl-p to open fuzzy finder
-nnoremap <silent> <leader>pf :FZF <cr>
+" nnoremap <silent> <leader>pf :FZF <cr>
 nnoremap <silent> <C-p> :FZF <cr>
 
 " Configure Ranger keymappings
