@@ -219,6 +219,8 @@
 (use-package undo-tree :ensure t :diminish undo-tree-mode)
 (global-undo-tree-mode)
 (evil-set-undo-system 'undo-tree)
+;; Prevent undo tree files from polluting your git repo
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 
 (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
 
@@ -394,6 +396,13 @@
   )
 
 (use-package terraform-mode :ensure t)
+
+(use-package auto-package-update
+   :ensure t
+   :config
+   (setq auto-package-update-delete-old-versions t
+         auto-package-update-interval 7)
+   (auto-package-update-maybe))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
