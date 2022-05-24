@@ -13,9 +13,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
 Plug 'elixir-editors/vim-elixir'
 Plug 'mattn/emmet-vim'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
 
 " TODO
-" Plug 'nelstrom/vim-textobj-rubyblock'
 " Plug 'davebrace/vim-testnav'
 
 call plug#end()
