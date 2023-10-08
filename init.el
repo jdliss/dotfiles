@@ -1,6 +1,6 @@
 (require 'package)
 
-(setq package-list '(use-package))
+(setq package-list '())
 
 ;; Add Melpa as the default Emacs Package repository ;; only contains a very limited number of packages
 ;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/archive-contents/") t)
@@ -20,6 +20,12 @@
 ;; load use-package
 (require 'use-package)
 
+;; use treesit auto
+(use-package treesit-auto
+  :ensure t
+  :config
+  (global-treesit-auto-mode))
+
 ;; better set of default settings
 (use-package better-defaults :ensure t)
 
@@ -36,7 +42,7 @@
 (setq ring-bell-function 'ignore)
 
 ;; Show line numbers
-(global-linum-mode 1)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; Enable transparent title-bar
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -55,11 +61,6 @@
 
 ;; Set electric-pair mode to auto insert matching parents/brackets
 (electric-pair-mode)
-
-;; Auto-indent when hitting RET key
-;; This fixes the issue with getting nicely formatted brackets when typing '{' and hitting RET
-;; Note - autoindents accoring to major mode
-(global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; No blinking cursor
 (blink-cursor-mode 0)
@@ -104,6 +105,8 @@
       scroll-down-aggressively 0.01)
 (setq-default scroll-up-aggressively 0.01
               scroll-down-aggressively 0.01)
+
+(pixel-scroll-precision-mode t)
 
 ;; Required by dashboard
 (use-package all-the-icons :ensure t :no-require t)
@@ -351,14 +354,6 @@
   :diminish ruby-end-mode
   :config
   (setq ruby-end-insert-newline nil))
-
-(use-package enh-ruby-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist
-               '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
-  (setq enh-ruby-deep-indent-paren nil))
 
 (use-package rust-mode :ensure t)
 
