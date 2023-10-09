@@ -392,6 +392,10 @@
 
 (use-package terraform-mode :ensure t)
 
+(use-package typescript-mode :ensure t
+  :config
+  (setq typescript-indent-level 2))
+
 (use-package auto-package-update
    :ensure t
    :config
