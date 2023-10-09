@@ -30,7 +30,7 @@ fi
 
 config_files=(
     work
-    pi
+    ssh
     emacs
     git
     crystal
