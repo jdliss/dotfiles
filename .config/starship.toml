@@ -1,1 +1,40 @@
-starship.toml
+# custom starship config
+
+add_newline = false
+
+continuation_prompt = "$character"
+
+# A minimal left prompt
+format = """$directory${custom.git_branch}${custom.git_branch_dirty}$cmd_duration$character"""
+
+[character]
+success_symbol = "[❯](blue)"
+error_symbol = "[❯](red)"
+
+[directory]
+style = "blue"
+fish_style_pwd_dir_length = 99
+
+# Show branch name in green when clean,
+# sed parsing is for showing commit hash when not on a full branch
+[custom.git_branch]
+when = 'OUTPUT=$(git status --porcelain) && test -z "${OUTPUT}"'
+command = "git branch | sed -nr 's/\\* (\\(HEAD detached (from|at) )?([^)]+))?$/\\3/ip'"
+style = "green"
+format="<[$output]($style)> "
+
+# Show branch name in yellow italics when dirty,
+# sed parsing is for showing commit hash when not on a full branch
+[custom.git_branch_dirty]
+when = 'OUTPUT=$(git status --porcelain) && test -n "${OUTPUT}"'
+command = "git branch | sed -nr 's/\\* (\\(HEAD detached (from|at) )?([^)]+))?$/\\3/ip'"
+style = "yellow italic"
+format="<[$output]($style)> "
+
+[cmd_duration]
+style = "white"
+format = '[$duration]($style) '
+
+[status]
+disabled = false
+symbol = ''
